@@ -10,7 +10,6 @@ import java.io.IOException;
 
 /**
  * 启动类
- *
  */
 
 //@EnableEurekaClient
