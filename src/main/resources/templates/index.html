@@ -37,13 +37,17 @@ body {
 a {
 	margin: 25px;
 }
-h1 {
-	background:#0f0; 
+h2 {
+	color: #f00;
 }
 </style>
 </head>
 <body>
-<h1 align="center">智慧校园测试系统,点击登陆入口,用户名:张三,密码:123456,即可登陆</h1>
+<h2 align="center">
+	若第一次运行本项目，请在手动user表中添加一条记录，填好用户名和密码<br></br>
+	密码是经过Base64加密的，如123456加密后为MTIzNDU2,请在user表中password字段填写MTIzNDU2<br></br>
+	然后点击登陆入口密码处输入123456即可登陆成功
+</h2>
 <div align="center">
 	<p>
 		<!-- <a class="btn btn-primary " href="admin/user-add">添加管理员</a> -->
@@ -64,7 +68,7 @@ h1 {
 		<a class="btn btn-primary " href="weekcourse/find?cid=1">查询课程表</a>
 	</p>
 	<p>
-		<a class="btn btn-primary " href="admin/">登陆入口</a>
+		<a class="btn btn-primary "  href="admin/">登陆入口</a>
 	</p>
 	<p>
 		<a class="btn btn-primary " href="baidumap/index">百度地图</a>
