@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/signin">
+<!-- layout文件路径-->
+<head>
+<title>登陆</title>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container">
+
+		<form class="form-signin" th:action="@{'/admin/class-save'}" method="post">
+			<h2 class="form-signin-heading">添加班级</h2>
+			<input name="cid"  type="number" id="inputNumber" 
+				class="form-control" placeholder="班级代号" ></input> 
+				<input name="name" 
+				type="text" id="inputText" class="form-control"
+				placeholder="班级名称" required="required"></input>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">添加</button>
+		</form>
+
+	</div>
+	<!-- /container -->
+
+</body>
+</html>

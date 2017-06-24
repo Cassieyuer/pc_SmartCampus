@@ -1,0 +1,5 @@
+server:
+  port: 8888  #端口号
+spring:
+  thymeleaf: 
+    cache: true  #缓存

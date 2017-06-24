@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/layout">
+<!-- layout文件路径-->
+
+<head>
+<meta charset="utf-8" />
+<title>课程表详情</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style type="text/css">
+select {
+	width: 25%;
+	font-size: 16px;
+	padding: 12px;
+	/* -- 圆角 -- */
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius :5px;
+	/* -- 圆角 -- */
+}
+.modify-weekcourse {
+	float: right;
+	height: 40px;
+	margin-right: 40px;
+	margin-bottom: 4px;
+}
+</style>
+</head>
+
+<body>
+	<div layout:fragment="content"
+		class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h1 class="page-header">Dashboard</h1>
+
+		<div >
+			<select name="cid" 
+				onchange="javascript:  window.location = this.options[this.selectedIndex].value">
+				<option selected="selected" label="请选择班级"></option>
+				<option th:each="clas, iterStat : ${class_list}"
+					th:value="'?cid=' + ${clas.cid}" 
+					th:label="${clas.name}"
+					th:selected="${#httpServletRequest.getParameter('cid') eq #strings.toString(clas.cid)}">
+				</option>
+			</select>
+			<select name="cid" 
+				onchange="javascript:  window.location = this.options[this.selectedIndex].value">
+				<option selected="selected" label="请选择教师"></option>
+				<option th:each="teacher, iterStat : ${teacher_list}"
+					th:value="'?tid=' + ${teacher.tid}"
+					th:label="${teacher.username}"
+					th:selected="${#httpServletRequest.getParameter('tid') eq #strings.toString(teacher.tid)}">
+				</option>
+			</select>
+			<select name="cid" 
+				onchange="javascript:  window.location = this.options[this.selectedIndex].value">
+				<option selected="selected" label="请选择教室"></option>
+				<option th:each="location, iterStat : ${location_list}"
+					th:value="'?lid=' + ${location.id}"
+					th:label="${location.location}"
+					th:selected="${#httpServletRequest.getParameter('lid') eq #strings.toString(location.id)}">
+				</option>
+			</select>
+			<a class="btn btn-primary modify-weekcourse" href="weekcourse-deleteall" onclick="javascript: return confirm('真的要删除所有课程表吗,此操作不可逆转？');">删除所有课程表</a>
+		</div>
+		<h2 class="sub-header">Section title</h2>
+		<!-- 引入课程表查询结果表格 -->
+		<div th:replace="fragments/result_table :: table-weekcourse"></div>
+	</div>
+
+</body>
+
+</html>

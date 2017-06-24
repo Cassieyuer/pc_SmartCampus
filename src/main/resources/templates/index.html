@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+<title>学生管理系统</title>
+<!-- Bootstrap core CSS -->
+<link href="../../static/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet"></link>
+	
+<!-- Bootstrap select CSS -->
+<link href="../../static/bootstrap/3.3.7/css/bootstrap-select.min.css"
+	th:href="@{/bootstrap/3.3.7/css/bootstrap-select.min.css}" rel="stylesheet"></link>
+
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<link href="../../static/css/ie10-viewport-bug-workaround.css"
+	th:href="@{/css/ie10-viewport-bug-workaround.css}" rel="stylesheet"></link>
+
+<!-- Custom styles for this template -->
+<link href="../../static/css/dashboard.css"
+	th:href="@{/css/dashboard.css}" rel="stylesheet"></link>
+
+<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<script src="../../static/js/ie-emulation-modes-warning.js"
+	th:src="@{/js/ie-emulation-modes-warning.js}"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+body {
+	background: #D2D460;
+}
+a {
+	margin: 25px;
+}
+h1 {
+	background:#0f0; 
+}
+</style>
+</head>
+<body>
+<h1 align="center">智慧校园测试系统,点击登陆入口,用户名:张三,密码:123456,即可登陆</h1>
+<div align="center">
+	<p>
+		<!-- <a class="btn btn-primary " href="admin/user-add">添加管理员</a> -->
+	</p>
+	<p>
+		<a class="btn btn-primary " href="student/query">查询所有学生</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="class/query">查询所有班级</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="teacher/query">查询所有教师</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="course/query">查询所有课程</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="weekcourse/find?cid=1">查询课程表</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="admin/">登陆入口</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="baidumap/index">百度地图</a>
+	</p>
+	<p>
+		<a class="btn btn-primary " href="swagger-ui.html">查看API文档</a>
+	</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="百度地图，百度地图API，百度地图自定义工具，百度地图所见即所得工具" />
+<meta name="description" content="百度地图API自定义地图，帮助用户在可视化操作下生成百度地图" />
+<title>百度地图API自定义地图</title>
+<style type="text/css">  
+html {
+	height:100%;
+}  
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}  
+#container {
+ height:100%;
+ /*left: 20%;*/
+}  
+</style>  
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&amp;ak=GGsrAbkiB7P6899Q3GmSZM4dpxIGxhfK"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+<script type="text/javascript">  
+	//下面示例显示一个地图，等待两秒钟后，它会移动到新中心点。panTo()方法将让地图平滑移动至新中心点，如果移动距离超过了当前地图区域大小，则地图会直跳到该点。
+	/*window.setTimeout(function(){  
+    map.panTo(new BMap.Point(116.409, 39.918));    
+	}, 2000);*/
+</script>  
+</head>  
+<body>  
+	<div id="container"></div>
+	<script type="text/javascript">
+		var map = new BMap.Map("container");          // 创建地图实例  	
+	</script>
+	
+	<script type="text/javascript">
+		function initialize() {  
+			//var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+			//map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+			map.centerAndZoom("北京", 7);                 // 初始化地图，设置中心城市和地图级别
+			map.enableScrollWheelZoom();                  //启用滚轮放大缩小	
+			map.enableScrollWheelZoom(true);
+			map.disableDragging();     //禁止拖拽
+			//map.addControl(new BMap.NavigationControl());   // 地图平移缩放控件，PC端默认位于地图左上方，它包含控制地图的平移和缩放的功能。移动端提供缩放控件，默认位于地图右下方。
+			map.addControl(new BMap.ScaleControl());    //比例尺控件，默认位于地图左下方，显示地图的比例关系。
+			map.addControl(new BMap.OverviewMapControl());    //缩略地图控件，默认位于地图右下方，是一个可折叠的缩略地图。
+			map.addControl(new BMap.MapTypeControl());    //地图类型控件，默认位于地图右上方。
+			map.setCurrentCity("北京"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+			//map.addEventListener("tilesloaded",function(){alert("地图加载完毕");});
+			setTimeout(function(){
+				 map.enableDragging();   //两秒后开启拖拽
+				 map.enableInertialDragging();   //两秒后开启惯性拖拽
+			}, 2000);
+		}
+	</script>
+	<!-- 公用方法 -->
+	<script type="text/javascript">
+		///*<![CDATA[*/
+		//单击获取点击的经纬度
+		/*function showInfo(e){
+			alert(e.point.lng + ", " + e.point.lat);	
+		}*/
+		//定位
+		function getLocation(){
+			
+			var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					var mk = new BMap.Marker(r.point);
+					map.addOverlay(mk);
+					map.panTo(r.point);
+					alert('您的位置：'+r.point.lng+','+r.point.lat);
+				}
+				else {
+					alert('failed'+this.getStatus());
+				}        
+			},{enableHighAccuracy: true});
+		}
+		var sContent = //"<div>"+//不写便是此div			<div class="BMap_bubble_content"></div>
+
+			"<img style=\"float:right;margin:4px\" id=\"imgDemo\" src=\"http://pica.nipic.com/2007-10-22/200710221142471_2.jpg\" width=\"139\" height=\"104\" title=\"天安门\"/>"
+					+ "<p style=\"margin:0;line-height:1.5;font-size:13px;text-indent:2em\">天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>"
+					+ "</div>";
+		// 创建信息窗口对象
+		var infoWindow = new BMap.InfoWindow(sContent, {
+			  width : 300,     // 信息窗口宽度
+			  height: 150,     // 信息窗口高度
+			  title : "<h4 style=\"margin:0 0 5px 0;padding:0.2em 0\">天安门</h4>" , // 信息窗口标题
+			  enableMessage:true,//设置允许信息窗发送短息
+			  message:"亲耐滴，晚上一起吃个饭吧？戳下面的链接看下地址喔~"
+			});  // 创建信息窗口对象
+		//显示信息窗口
+		var showInfo = function(e){
+			this.openInfoWindow(infoWindow);
+			//图片加载完毕重绘infowindow
+			document.getElementById('imgDemo').onload = function (){
+				infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+			}
+		}
+		//点聚合
+		function dianJvhe(){
+			//点聚合
+			var markers = [];
+			for (var i = 0; i < 10; i++) {
+				var pt = new BMap.Point(Math.random() * 40 + 85, Math.random() * 30 + 21);
+				var m = new BMap.Marker(pt);
+				m.addEventListener("click", showInfo);
+				markers.push(m);
+			}
+			//最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+			var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+		}
+		
+		//点聚合
+		function dianJvhe(addresses){
+			//点聚合
+			var points = serach(addresses);
+			var markers = [];
+			for (i in points) {
+				var m = new BMap.Marker(new BMap.Point(points[i].lat, points[i].lng));
+				alert("纬度:"+points[i].lat+",经度:"+points[i].lng);
+				m.addEventListener("click", showInfo); 
+				markers.push(m);
+			}
+			//最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+			var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
+		}
+		
+		//检索功能
+		function serach(addresses){
+			var points = [];
+			for (i in addresses){
+				$.ajax({
+						url:'/baidumap/location',
+						type:'POST', //GET
+						async:false,    //或false,是否异步
+						data:{
+							address: addresses[i],
+						},
+						success: function(data){
+							var status = data.status;
+							if (status == 0){
+								var location = data.result.location;
+								var point = new BMap.Point(location.lat, location.lng);
+								points.push(point);
+							} else {
+								alert("获取"+addresses[i]+"经纬度信息失败");
+							}
+						},
+						timeout:5000,    //超时时间
+						dataType:'json',    //返回的数据格式：json/xml/html/script/jsonp/text
+				});
+			}
+			return points;
+		}
+		///*]]>*/
+	</script>
+	<!-- 右键菜单 -->
+	<script type="text/javascript">
+	///*<![CDATA[*/
+		//右键菜单
+		var menu = new BMap.ContextMenu();
+		var txtMenuItem = [
+			{
+				text:'放大',
+				callback:function(){map.zoomIn()}
+			},
+			{
+				text:'缩小',
+				callback:function(){map.zoomOut()}
+			}
+		];
+		for(var i=0; i < txtMenuItem.length; i++){
+			menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+		}	
+		
+		//覆盖物右键菜单
+		var removeMarker = function(e,ee,marker){
+			map.removeOverlay(marker);
+		}
+		var markerMenu=new BMap.ContextMenu();
+		markerMenu.addItem(new BMap.MenuItem('删除',removeMarker.bind(marker)));
+		
+		var marker = new BMap.Marker(new BMap.Point(116.404, 39.915));
+		marker.addContextMenu(markerMenu);
+		///*]]>*/
+	</script>
+	<!-- 自定义控件 -->
+	<script type="text/javascript">
+	///*<![CDATA[*/
+		// 定义一个控件类，即function    
+		function ZoomControl(){    
+				// 设置默认停靠位置和偏移量  
+				this.defaultAnchor = BMAP_ANCHOR_BOTTOM_LEFT;    
+				this.defaultOffset = new BMap.Size(100, 100);    
+		}    
+		// 通过JavaScript的prototype属性继承于BMap.Control   
+		ZoomControl.prototype = new BMap.Control();
+		// 自定义控件必须实现initialize方法，并且将控件的DOM元素返回   
+		// 在本方法中创建个div元素作为控件的容器，并将其添加到地图容器中   
+		ZoomControl.prototype.initialize = function(map){    
+		// 创建一个DOM元素   
+		 var button = document.createElement("button");    
+		// 添加文字说明    
+		 button.appendChild(document.createTextNode("放大2级"));    
+		 // 设置样式    
+		 button.style.cursor = "pointer";    
+		 button.style.border = "1px solid gray";    
+		 button.style.backgroundColor = "white";    
+		 // 绑定事件，点击一次放大两级    
+		 button.onclick = function(e){  
+			map.zoomTo(map.getZoom() + 2);    
+		 }    
+		 // 添加DOM元素到地图中   
+		 map.getContainer().appendChild(button);    
+		 // 将DOM元素返回  
+		 return button;    
+		 }
+		 
+		//第三方版权
+		function showCopyright(){
+			var cr = new BMap.CopyrightControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT});   //设置版权控件位置
+			map.addControl(cr); //添加版权控件
+
+			var bs = map.getBounds();   //返回地图可视区域
+			cr.addCopyright({id: 1, content: "<a href=\"smartcampus.ngrok.cc\" style=\"font-size:20px;background:yellow\">官网</a>", bounds: bs});   
+			//Copyright(id,content,bounds)类作为CopyrightControl.addCopyright()方法的参数
+		}
+		///*]]>*/
+	</script>
+	
+	<script type="text/javascript">
+	///*<![CDATA[*/
+		//marker.addEventListener("click",overlay_style);
+		
+		var polyline = new BMap.Polyline([
+			new BMap.Point(116.383752, 39.91334),
+			new BMap.Point(116.38792, 39.920866),
+			new BMap.Point(116.390867, 39.906532)
+		], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});   //创建折线
+		polyline.addEventListener("click",overlay_style);
+			
+		var circle = new BMap.Circle(new BMap.Point(116.415157, 39.914004),500,{strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5}); //创建圆	
+		circle.addEventListener("click",overlay_style);
+		
+		//获取marker的属性
+		function overlay_style(e){
+			map.removeEventListener("click", showInfo);//移除事件
+			var p = e.target;
+			if(p instanceof BMap.Marker){
+				alert("该覆盖物是点，点的坐标是：" + p.getPosition().lng + "," + p.getPosition().lat);   
+			}else if(p instanceof BMap.Circle){
+				alert("该覆盖物是圆，圆的半径是：" + p.getRadius() + "，圆的中心点坐标是：" + p.getCenter().lng + "," + p.getCenter().lat);   
+			}else if(p instanceof BMap.Polyline){
+				alert("该覆盖物是折线，所画点的个数是：" + p.getPath().length);   
+			}else{
+				alert("无法获知该覆盖物类型");
+			}
+		}	
+		
+		function addOverlay(){
+				map.addOverlay(marker);            //增加点
+				map.addOverlay(polyline);          //增加折线
+				map.addOverlay(circle);            //增加圆
+		}
+		
+		
+		/******************地址解析功能*****************/
+		
+		function bdGEO(address) {
+			var myGeo = new BMap.Geocoder();
+			for (index in address) {
+				search(address[index]);
+			}
+			function search(add) {
+				myGeo.getPoint(add, function(point) {
+					if (point) {
+						//document.getElementById("result").innerHTML +=  index + "、" + add + ":" + point.lng + "," + point.lat + "</br>";
+						var address = new BMap.Point(point.lng, point.lat);
+						addMarker(address, new BMap.Label(add, {
+							offset : new BMap.Size(20, -10)
+						}));
+					}
+				});
+			}
+			// 编写自定义函数,创建标注
+			function addMarker(point, label) {
+				var marker = new BMap.Marker(point);
+				marker.addEventListener("click", showInfo);
+				map.addOverlay(marker);
+				marker.setLabel(label);
+			}
+		}
+		/******************地址解析功能*****************/
+		///*]]>*/
+	</script>
+	
+	<script type="text/javascript">
+		
+		///*<![CDATA[*/
+		initialize();
+		map.addControl(new ZoomControl());
+		//showCopyright();
+		map.addControl(new BMap.CityListControl({
+			anchor : BMAP_ANCHOR_TOP_LEFT,
+			offset : new BMap.Size(10, 20),
+		}));
+
+		map.addContextMenu(menu);//添加右键菜单
+		map.addOverlay(marker);//添加覆盖物
+
+		marker.addEventListener("click", showInfo);
+		//dianJvhe(["廊坊","石家庄","邯郸"]);//ajax显示点位置 + 点聚合
+
+		bdGEO([	"承德市", "北京市", "天津市", "秦皇岛市", "张家口市",
+				"邯郸市", "邢台市", "衡水市", "石家庄市", "保定市", 
+				"沧州市", "廊坊市", "唐山市" ]);
+		///*]]>*/
+	</script>
+
+</body>  
+</html>

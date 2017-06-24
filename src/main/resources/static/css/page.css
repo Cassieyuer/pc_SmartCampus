@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+.page{
+	text-align: center;
+	margin-top: 50px;
+}
+.page a{
+	padding: 6px 12px;
+	margin-left: -1px;
+	line-height: 1.42857143;
+	color: #337ab7;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid #ddd;
+}	

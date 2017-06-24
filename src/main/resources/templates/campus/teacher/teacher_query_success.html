@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/layout">
+<!-- layout文件路径-->
+
+<head>
+<meta charset="utf-8" />
+<title>教师信息</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style type="text/css">
+.modify-teacher {
+	height: 40px;
+	margin-left: 15px;
+	margin-bottom: 4px;
+}
+</style>
+</head>
+
+<body>
+	<div layout:fragment="content"
+		class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h1 class="page-header">Dashboard</h1>
+		<a class="btn btn-primary modify-teacher" href="teacher-add">添加教师</a>
+		<a class="btn btn-primary modify-teacher">查找教师</a>
+		<a class="btn btn-primary modify-student" id="teacher-download">下载</a>
+		<h2 class="sub-header">Section title</h2>
+		<!-- 引入教师查询结果表格 -->
+		<div th:replace="fragments/result_table :: table-teacher"></div>
+		<!-- 底端分页按钮-->
+		<div th:replace="fragments/module :: page-bottom"></div>
+		<script src="../../static/jquery/3.2.1/jquery-3.2.1.js"
+			th:src="@{/jquery/3.2.1/jquery-3.2.1.js}"></script>
+		<script type="text/javascript" th:inline="javascript">
+			///*<![CDATA[*/
+				$("#teacher-download").click(function(){
+					$.ajax({ 
+						type : "GET",
+						url: "/admin/teacher-download", 
+						data: {
+							path: "E:/"
+						},
+						success: function(){
+				        	alert("下载成功请查看E:/teachers.xls");
+				    	},
+						error:function(){
+							alert("失败");
+				        }
+					});
+				});
+				
+			///*]]>*/
+		</script>
+	</div>
+</body>
+
+</html>

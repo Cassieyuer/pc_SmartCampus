@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/signin">
+<!-- layout文件路径-->
+<head>
+<title>登陆</title>
+</head>
+<body>
+	<div layout:fragment="content" class="container">
+	
+		<div th:replace="fragments/module :: page-header"></div>
+		<!-- <div th:replace="fragments/module :: image"></div> -->
+
+		<form class="form-signin" th:action="@{'/admin/login'}" method="post">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<input name="username" type="text" id="inputEmail"
+				class="form-control" placeholder="账号" required="required"
+				autofocus="autofocus"></input> 
+			<input name="password"
+				type="password" id="inputPassword" class="form-control"
+				placeholder="密码" required="required"></input>
+			<div class="checkbox">
+				<label> <input type="checkbox" value="remember-me"></input>
+					Remember me
+				</label>
+			</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+				登陆</button>
+		</form>
+
+		<h1 align="center" style="color: #7BC2FF;" th:text="${error}"></h1>
+
+	</div>
+	<!-- /container -->
+</body>
+</html>

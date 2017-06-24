@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 学生查询结果表格 -->
+	<div th:fragment="table-student">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>学号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>出生日期</th>
+						<th>地址</th>
+						<th>班级</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="student, iterStat : ${page.content}">
+						<td th:text="${student.sid}">Onions</td>
+						<td><a th:text="${student.username}"
+							th:href="@{'/admin/stu-modify?sid=' + ${student.sid}}">2.41</a></td>
+						<td th:text="${student.sex}">yes</td>
+						<td th:text="${#dates.format(student.birthday, 'yyyy-MM-dd')}">yes</td>
+						<td th:text="${student.address}">yes</td>
+						<td th:text="${student.clas} ? ${student.clas.name} : '请添加班级'">yes</td>
+						<td><a th:href="@{'/admin/stu-delete?sid=' + ${student.sid}}"
+							onclick="javascript: return confirm('真的要删除吗？');">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+	<!-- 教师查询结果表格 -->
+	<div th:fragment="table-teacher">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>工号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>出生日期</th>
+						<th>地址</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="teacher, iterStat : ${page.content}">
+						<td th:text="${teacher.tid}">Onions</td>
+						<td><a th:text="${teacher.username}"
+							th:href="@{'/admin/teacher-modify?tid=' + ${teacher.tid}}">2.41</a></td>
+						<td th:text="${teacher.sex}">yes</td>
+						<td th:text="${#dates.format(teacher.birthday, 'yyyy-MM-dd')}">yes</td>
+						<td th:text="${teacher.address}">yes</td>
+						<td><a th:href="@{'/admin/teacher-delete?tid=' + ${teacher.tid}}"
+							onclick="javascript: return confirm('真的要删除吗？');">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+	<!-- 班级查询结果表格 -->
+	<div th:fragment="table-class">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>班级代号</th>
+						<th>班级名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="clas, iterStat : ${page.content}">
+						<td><a th:text="${clas.cid}">2.41</a></td>
+						<td><a th:text="${clas.name}"
+							th:href="@{'/admin/class-modify?cid=' + ${clas.cid}}">2.41</a></td>
+						<td><a th:href="@{'/admin/class-delete?cid=' + ${clas.cid}}"
+							onclick="javascript: return confirm('真的要删除吗？');">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+	<!-- 教室查询结果表格 -->
+	<div th:fragment="table-classroom">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>教室代号</th>
+						<th>教室名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="classroom, iterStat : ${page.content}">
+						<td><a th:text="${classroom.id}">2.41</a></td>
+						<td><a th:text="${classroom.location}"
+							th:href="@{'/admin/classroom-modify?cid=' + ${classroom.id}}">2.41</a></td>
+						<td><a
+							th:href="@{'/admin/classroom-delete?cid=' + ${classroom.id}}"
+							onclick="javascript: return confirm('真的要删除吗？');">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+	<!-- 课程查询结果表格 -->
+	<div th:fragment="table-course">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>课程代号</th>
+						<th>课程名称</th>
+						<th>课程学分</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="course, iterStat : ${page.content}">
+						<td><a th:text="${course.cid}">2.41</a></td>
+						<td><a th:text="${course.name}"
+							th:href="@{'/admin/course-modify?cid=' + ${course.cid}}">2.41</a></td>
+						<td><a th:text="${course.credit}">2.41</a></td>
+						<td><a
+							th:href="@{'/admin/course-delete?cid=' + ${course.cid}}"
+							onclick="javascript: return confirm('真的要删除吗？');">删除</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+	<!-- 课程表查询结果表格 -->
+	<div th:fragment="table-weekcourse">
+      <div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>节次</th>
+						<th>星期一</th>
+						<th>星期二</th>
+						<th>星期三</th>
+						<th>星期四</th>
+						<th>星期五</th>
+						<th>星期六</th>
+						<th>星期日</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- 遍历开始 -->
+					<tr th:each="weekcourses, outStat : ${page}">
+						<td th:text="${outStat.count}">1</td>
+						<td th:each="weekcourse, innerStat : ${weekcourses}"><a
+							th:href="@{'/admin/weekcourse-modify?cid=' 
+						+ (${#numbers.formatInteger(weekcourse.clas,1)}==0 ? ${#httpServletRequest.getParameter('cid')} : ${weekcourse.clas})
+						+ '&amp;time=' + ${outStat.index} 
+						+ '&amp;week=' + ${innerStat.index} 
+						+ '&amp;args=cid_' + ${#httpServletRequest.getParameter('cid')}
+						+ '_tid_' + ${#httpServletRequest.getParameter('tid')}
+						+ '_lid_' + ${#httpServletRequest.getParameter('lid')}}">
+								<label
+								th:text="${#strings.isEmpty(weekcourse.className)} ? '+' : ${weekcourse.className}"></label><br></br>
+								<label
+								th:text="${#strings.isEmpty(weekcourse.course.name)} ? '+' : ${weekcourse.course.name}"></label><br></br>
+								<label
+								th:text="${#strings.isEmpty(weekcourse.teacher.username)} ? '+' : ${weekcourse.teacher.username}"></label><br></br>
+								<label
+								th:text="${#strings.isEmpty(weekcourse.location.location)} ? '+' : ${weekcourse.location.location}"></label><br></br>
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+    </div>
+</body>
+</html>

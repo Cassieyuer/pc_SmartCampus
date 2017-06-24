@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/signin">
+<!-- layout文件路径-->
+<head>
+<title>学生</title>
+<style type="text/css">
+select {
+	width: 100%;
+	font-size: 16px;
+	padding: 12px;
+	/* -- 圆角 -- */
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius :5px;
+	/* -- 圆角 -- */
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container">
+
+		<form class="form-signin" th:action="@{'/admin/stu-save'}" method="post">
+			<h2 class="form-signin-heading">添加学生</h2>
+			<input name="sid"  type="number" id="inputNumber"
+				class="form-control" placeholder="学生学号" ></input> 
+				<input name="username" 
+				type="text" id="inputText" class="form-control"
+				placeholder="姓名" required="required"></input>
+				<input name="idCard" 
+				type="text" id="inputText" class="form-control"
+				placeholder="身份证号" required="required"></input>
+				<input name="address" 
+				type="text" id="inputText" class="form-control"
+				placeholder="地址" required="required"></input>
+				<select name="cid" >
+					<option th:if="${#lists.size(class_list)} eq 0" 
+						value="0" label="请选择班级">
+					</option>
+					<option th:unless="${#lists.size(class_list)} eq 0" 
+						th:each="clas, iterStat : ${class_list}"
+						th:value="${clas.cid}" th:label="${clas.name}">
+					</option>
+				</select>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">添加</button>
+		</form>
+
+	</div>
+	<!-- /container -->
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/signin">
+<!-- layout文件路径-->
+<head>
+<title>课程表修改</title>
+<style type="text/css">
+select {
+	width: 100%;
+	font-size: 16px;
+	padding: 12px;
+	/* -- 圆角 -- */
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-border-radius :5px;
+	/* -- 圆角 -- */
+}
+a {
+	width: 27%;
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container">
+
+		<form class="form-signin" th:action="@{'/admin/weekcourse-save'}" method="post">
+			<h2 class="form-signin-heading">修改课程表</h2>
+				<input name="week" th:value="${weekcourse.week}" type="text" id="inputText"
+					class="form-control" placeholder="星期" readonly="readonly"></input> 
+				<input name="time" th:value="${'第'+(weekcourse.time+1)+'节课'}" type="text" id="inputText"
+					class="form-control" placeholder="节次" readonly="readonly"></input> 
+				<select name="clasid" style="background-color: #eee;"
+						onfocus="this.defaultIndex=this.selectedIndex;" 
+						onchange="this.selectedIndex=this.defaultIndex;">
+						<option th:if="${#lists.size(class_list)} eq 0" 
+							value="0" label="请添加班级"></option>
+						<option th:each="clas, iterStat : ${class_list}"
+							th:value="${clas.cid}" th:label="${clas.name}"
+							th:selected="${clas.cid==weekcourse.clas}"></option>
+				</select>
+				<select name="cid" >
+					<option th:if="${#lists.size(course_list)} eq 0" 
+						value="0" label="请添加班级"></option>
+					<option th:each="course, iterStat : ${course_list}"
+						th:value="${course.cid}" th:label="${course.name}"
+						th:selected="${course.cid==weekcourse.course.cid}"></option>
+				</select>
+				<select name="tid" >
+					<option th:if="${#lists.size(teacher_list)} eq 0" 
+							value="0" label="请添加教师"></option>
+					<option th:each="teacher, iterStat : ${teacher_list}"
+						th:value="${teacher.tid}" th:label="${teacher.username}"
+						th:selected="${teacher.tid==weekcourse.teacher.tid}">
+					</option>
+				</select>
+				<select name="lid" >
+					<option th:if="${#lists.size(location_list)} eq 0" 
+							value="0" label="请添加教室"></option>
+					<option th:each="location, iterStat : ${location_list}"
+						th:value="${location.id}" th:label="${location.location}"
+						th:selected="${location.id==weekcourse.location.id}">
+					</option>
+				</select>
+			<input type="hidden" name="args" th:value="${args}"></input>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">修改</button>
+		</form>
+		<div align="center">
+			<a class="btn btn-lg btn-danger" 
+			th:href="@{'/admin/weekcourse-delete?cid='+${#httpServletRequest.getParameter('cid')}+
+			'&amp;week='+${#httpServletRequest.getParameter('week')}+
+			'&amp;time='+${#httpServletRequest.getParameter('time')}+
+			'&amp;args='+${args}}" 
+			onclick="javascript: return confirm('真的要删除吗？');">删除
+			</a>
+		</div>
+		
+
+	</div>
+	<!-- /container -->
+
+</body>
+</html>

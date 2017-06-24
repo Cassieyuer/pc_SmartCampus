@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/signin">
+<!-- layout文件路径-->
+<head>
+<title>教师</title>
+</head>
+<body>
+
+	<div layout:fragment="content" class="container">
+
+		<form class="form-signin" th:action="@{'/admin/teacher-update'}" method="post">
+			<h2 class="form-signin-heading">修改教师</h2>
+			<input name="tid" th:value="${teacher.tid}" type="number" id="inputNumber"
+				class="form-control" placeholder="教师工号" readonly="readonly"></input> 
+				<input name="username" th:value="${teacher.username}"
+				type="text" id="inputText" class="form-control"
+				placeholder="姓名" required="required"></input>
+				<input name="idCard" th:value="${teacher.idCard}"
+				type="text" id="inputText" class="form-control"
+				placeholder="身份证号" required="required"></input>
+				<input name="address" th:value="${teacher.address}"
+				type="text" id="inputText" class="form-control"
+				placeholder="地址" required="required"></input>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">修改</button>
+		</form>
+
+	</div>
+	<!-- /container -->
+</body>
+</html>

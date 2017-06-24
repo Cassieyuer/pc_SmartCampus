@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="base/layout">
+<!-- layout文件路径-->
+
+<head>
+<meta charset="utf-8" />
+<title>班级信息</title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style type="text/css">
+.modify-class {
+	height: 40px;
+	margin-left: 15px;
+	margin-bottom: 4px;
+}
+</style>
+</head>
+
+<body>
+	<div layout:fragment="content"
+		class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h1 class="page-header">Dashboard</h1>
+
+		<a class="btn btn-primary modify-class" href="class-add">添加班级</a>
+		<a class="btn btn-primary modify-class">查找班级</a>
+
+		<h2 class="sub-header">Section title</h2>
+		<!-- 引入班级查询结果表格 -->
+		<div th:replace="fragments/result_table :: table-class"></div>
+		<!-- 底端分页按钮-->
+		<div th:replace="fragments/module :: page-bottom"></div>
+	</div>
+
+</body>
+
+</html>

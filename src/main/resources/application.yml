@@ -1,0 +1,30 @@
+#context:
+#  listener:
+#    classes: com.std.smartcampus.Application
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
+spring: 
+  application:
+    name: 智慧校园
+  profiles:
+    active: dev
+#    active: prod
+  datasource: 
+    url: jdbc:mysql://127.0.0.1:3306/test?useSSL=false
+    username: root
+    password: root
+  jpa: 
+    show-sql: true  #显示SQL语句
+    hibernate: 
+      ddl-auto: update  #建表方式为自动更新
+    properties: 
+      hibernate: 
+        dialect: org.hibernate.dialect.MySQL5Dialect  #设置数据库方言为MySQL
+        format_sql: true  #格式化SQL语句
+  thymeleaf:
+    prefix: classpath:/templates/ #前缀
+    suffix: .html #后缀
+  aop:
+    auto: true #使用aop

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 顶端导航 -->
+	<div th:fragment="top">
+		<!-- 左上角项目名称 -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{/}">智慧校园</a>
+		</div>
+		<!-- 欢迎语 -->
+		<marquee class="navbar-brand navbar-center" style="margin-left: 10%; font-size: 15px; float: center; color: #f5d313; width: 40%;">
+			欢迎您,<span th:text="${session.username}">亲爱的用户</span>&nbsp;&nbsp;&nbsp;现在是 
+			<span id="time"></span>
+			<script th:inline="javascript">
+                 ///*<![CDATA[*/
+                   function setTime(){
+                    var dt=new Date();
+                    var arr_week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六");
+                    var strWeek=arr_week[dt.getDay()];
+                    var strHour=dt.getHours();
+                    var strMinutes=dt.getMinutes();
+                    var strSeconds=dt.getSeconds();
+                    if (strMinutes<10) strMinutes="0"+strMinutes;
+                    if (strSeconds<10) strSeconds="0"+strSeconds;
+                    var strYear=dt.getFullYear()+"年";
+                    var strMonth=(dt.getMonth()+1)+"月";
+                    var strDay=dt.getDate()+"日";
+                    var strTime=strHour+":"+strMinutes+":"+strSeconds;
+                    time.innerHTML=strYear+strMonth+strDay+" "+strTime+"  "+strWeek;   
+                   }
+                   setInterval("setTime()",1000);
+               ///*]]>*/
+           </script>
+		</marquee>
+		<div id="navbar" class="navbar-collapse collapse"
+			style="right: 15px;">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">我的</a></li>
+				<li><a href="#">设置</a></li>
+				<li>
+					<a href="javascript:void(0)" id="clear_cache">清除缓存</a>
+					<script src="../../static/jquery/3.2.1/jquery-3.2.1.js"
+						th:src="@{/jquery/3.2.1/jquery-3.2.1.js}"></script>
+					<script type="text/javascript" th:inline="javascript">
+						///*<![CDATA[*/
+							$("#clear_cache").click(function(){
+								$.ajax({ 
+									type : "POST",
+									url: "/admin/clear_cache", 
+									data: {},
+									success: function(rep){
+							        	alert(rep.data);
+							    	},
+									error:function(){
+										alert("失败");
+							        }
+								});
+							});
+							
+						///*]]>*/
+					</script>
+				</li>
+				<li><a href="#">帮助</a></li>
+				<li><a th:href="@{/admin}" onclick="javascript: return confirm('真的要退出吗？');">退出</a></li>
+			</ul>
+			<form class="navbar-form navbar-right">
+				<input type="text" class="form-control" placeholder="搜索..."></input>
+			</form>
+		</div>
+	</div>
+	<!-- 左端导航 -->
+	<div th:fragment="left">
+		<!-- 左侧导航 -->
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li th:class="${stu_css} ? ${stu_css}"><a th:href="@{/admin/stu-query?page=0}">学生管理</a></li>
+				<li th:class="${teacher_css} ? ${teacher_css}"><a th:href="@{/admin/teacher-query?page=0}">教师管理</a></li>
+			</ul>
+			<ul class="nav nav-sidebar">
+				<li th:class="${class_css} ? ${class_css}"><a th:href="@{/admin/class-query?page=0}">班级管理</a></li>
+				<li th:class="${class_room_css} ? ${class_room_css}"><a th:href="@{/admin/classroom-query?page=0}">教室管理</a></li>
+				<li th:class="${course_css} ? ${course_css}"><a th:href="@{/admin/course-query?page=0}">课程管理</a></li>
+			</ul>
+			<ul class="nav nav-sidebar">
+				<li th:class="${week_course_css} ? ${week_course_css}"><a th:href="@{/admin/weekcourse-find?page=0}">查看课程表</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- 图片导航 -->
+	<div th:fragment="image">
+		<div class="row placeholders">
+			<div class="col-xs-6 col-sm-3 placeholder">
+				<img
+					th:src="@{/images/logo_1.png}"
+					src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+					width="200" height="200" class="img-responsive img-circle"
+					alt="Generic placeholder thumbnail"></img>
+				<h4>Label</h4>
+				<span class="text-muted">Something else</span>
+			</div>
+			<div class="col-xs-6 col-sm-3 placeholder">
+				<img
+					th:src="@{/images/logo_2.png}"
+					src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+					width="200" height="200" class="img-responsive img-circle"
+					alt="Generic placeholder thumbnail"></img>
+				<h4>Label</h4>
+				<span class="text-muted">Something else</span>
+			</div>
+			<div class="col-xs-6 col-sm-3 placeholder">
+				<img
+					th:src="@{/images/logo_3.png}"
+					src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+					width="200" height="200" class="img-responsive img-circle"
+					alt="Generic placeholder thumbnail"></img>
+				<h4>Label</h4>
+				<span class="text-muted">Something else</span>
+			</div>
+			<div class="col-xs-6 col-sm-3 placeholder">
+				<img
+					th:src="@{/images/logo_4.png}"
+					src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+					width="200" height="200" class="img-responsive img-circle"
+					alt="Generic placeholder thumbnail"></img>
+				<h4>Label</h4>
+				<span class="text-muted">Something else</span>
+			</div>
+		</div>
+	</div>
+	<!-- 轮播图 -->
+	<div th:fragment="page-header">
+		<div id="carousel-example-generic" class="carousel slide"
+			data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0"
+					class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="3"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="4"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="5"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="6"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div align="center" class="item active">
+					<img th:src="@{/images/t1.jpg}"
+						alt="First slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t2.jpg}"
+						alt="Second slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t3.jpg}"
+						alt="Third slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t4.jpg}"
+						alt="Second slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t5.jpg}"
+						alt="Third slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t6.jpg}"
+						alt="Second slide"></img>
+				</div>
+				<div align="center" class="item">
+					<img th:src="@{/images/t7.jpg}"
+						alt="Third slide"></img>
+				</div>
+
+			</div>
+			<a class="left carousel-control" href="#carousel-example-generic"
+				role="button" data-slide="prev"> <span
+				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#carousel-example-generic"
+				role="button" data-slide="next"> <span
+				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	<!-- 底端分页按钮-->
+	<div th:fragment="page-bottom">
+		<div class="page">
+			<script src="../../static/jquery/3.2.1/jquery-3.2.1.js"
+				th:src="@{/jquery/3.2.1/jquery-3.2.1.js}"></script>
+			<script src="../../static/js/page.js" th:src="@{/js/page.js}"></script>
+			<script th:inline="javascript">
+			///*<![CDATA[*/
+				var size = [[${page.size}]];//每页最大数据
+				var numberOfElements = [[${page.numberOfElements}]];//当前页数据
+				var page = [[${#httpServletRequest.getParameter('page')}]];//当前页
+				var totalPages = [[${page.totalPages}]];//总页数
+				var page = new Page(totalPages, size, numberOfElements, page);
+				page.createPage();//画分页界面
+				$(".page a").click(function(){
+					var urlParams = window.location.href;
+					if(urlParams.indexOf('?') != -1){//url中有参数
+						var url = urlParams.split('?')[0];//url
+						var oldParams = urlParams.split('?')[1];//参数
+						var newParams = page.getNewParams(this, oldParams);
+					}  else{
+						window.location.href = urlParams+'?page='+page.getNewPageValue(this, 1);
+					}
+					if(oldParams != newParams){
+						window.location.href = url+'?'+newParams;//打开新链接
+					}
+				});
+			///*]]>*/
+			</script>
+		</div>
+	</div>
+
+</body>
+</html>
