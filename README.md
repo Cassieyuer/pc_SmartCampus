@@ -7,7 +7,7 @@
  本项目数据库使用MySQL，MySQL配置文件在application.yml文件中，自行更改为你电脑上的数据库信息    
  本项目实现Web请求日志入Mongodb数据库  
  Mongodb安装方法请参考[这里](http://jingyan.baidu.com/article/d5c4b52bef7268da560dc5f8.html)
-   -----
+   ------
  如不需要使用请按如下操作
  1. 在pom文件中删除以下依赖  
  ````xml
