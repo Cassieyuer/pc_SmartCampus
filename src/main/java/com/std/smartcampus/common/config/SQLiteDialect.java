@@ -10,7 +10,7 @@ import org.hibernate.type.StringType;
 /**
  * SQLiteDialect 方言
  * @ClassName: SQLiteDialect 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午12:52:48
  */

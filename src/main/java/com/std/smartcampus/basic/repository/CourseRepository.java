@@ -5,7 +5,7 @@ import com.std.smartcampus.basic.domain.Course;
 /**
  * 课程Dao层
  * @ClassName: CourseRepository 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:06:20
  */

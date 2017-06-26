@@ -4,7 +4,7 @@ package com.std.smartcampus.common.exception;
 /**
  * 身份证号错误异常
  * @ClassName: IdCardException 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:56:04
  */

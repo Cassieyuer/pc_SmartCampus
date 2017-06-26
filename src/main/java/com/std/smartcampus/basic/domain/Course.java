@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * 课程实体类
  * @ClassName: Course 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:01:11
  */

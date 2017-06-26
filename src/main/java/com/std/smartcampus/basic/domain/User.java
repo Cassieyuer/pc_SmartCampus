@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 管理员实体类
  * @ClassName: Admin 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:01:52
  */

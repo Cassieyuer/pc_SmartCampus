@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 教室实体类
  * @ClassName: ClassRoom 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:01:25
  */

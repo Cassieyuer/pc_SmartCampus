@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 
  * @ClassName: MobileStudentController 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:52:56
  */

@@ -18,7 +18,7 @@ import com.std.smartcampus.basic.domain.pk.WeekCoursePK;
 /**
  * 课程表实体类
  * @ClassName: WeekCourse 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:00:38
  */

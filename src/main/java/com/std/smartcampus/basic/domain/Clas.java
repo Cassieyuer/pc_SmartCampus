@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 班级实体类
  * @ClassName: Clas 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:01:39
  */

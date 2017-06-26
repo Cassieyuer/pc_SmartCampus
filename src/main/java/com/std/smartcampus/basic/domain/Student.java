@@ -38,7 +38,7 @@ import com.std.smartcampus.common.util.excel.Excel;
 /**
  * 学生实体类
  * @ClassName: Student 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:00:15
  */

@@ -26,7 +26,7 @@ import com.std.smartcampus.basic.domain.User;
 /**
  * 管理员Dao层
  * @ClassName: AdminRepository 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:02:14
  */
@@ -36,7 +36,7 @@ public interface UserRepository extends BaseRepository<User, Integer>{
 	/**
 	 * 根据用户名和密码查找管理员
 	 * @Title: findByUsernameAndPassword 
-	 * @Description: TODO
+	 *
 	 * @param username 用户名 
 	 * @param password 密码
 	 * @return
@@ -49,7 +49,7 @@ public interface UserRepository extends BaseRepository<User, Integer>{
 	/**
 	 * 
 	 * @Title: updateAdminPassword 
-	 * @Description: TODO
+	 *
 	 * @param username
 	 * @param password
 	 * @return
@@ -62,7 +62,7 @@ public interface UserRepository extends BaseRepository<User, Integer>{
 	/**
 	 * 
 	 * @Title: findByUsername 
-	 * @Description: TODO
+	 *
 	 * @param username
 	 * @return
 	 * @return: Admin

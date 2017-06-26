@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 课程控制层
  * @ClassName: PCCourseController 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:39:55
  */

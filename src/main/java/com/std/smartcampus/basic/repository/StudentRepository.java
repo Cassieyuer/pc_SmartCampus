@@ -31,7 +31,7 @@ import com.std.smartcampus.basic.domain.Student;
 /**
  * 学生Dao层
  * @ClassName: StudentRepository 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:09:51
  */
@@ -49,7 +49,7 @@ public interface StudentRepository extends BaseRepository<Student, String>{
 	/**
 	 * 根据用户名和密码查找学生
 	 * @Title: findByUsernameAndPassword 
-	 * @Description: TODO
+	 *
 	 * @param username 用户名
 	 * @param password 密码
 	 * @return: Student
@@ -59,7 +59,7 @@ public interface StudentRepository extends BaseRepository<Student, String>{
 	/**
 	 * 查找某班的所有学生
 	 * @Title: findByClasIn 
-	 * @Description: TODO
+	 *
 	 * @param Clas 某班
 	 * @return
 	 * @return: List<Student>
@@ -70,13 +70,12 @@ public interface StudentRepository extends BaseRepository<Student, String>{
 	/**
 	 * 根据学生学号修改学生姓名
 	 * @Title: updateStudentUsername 
-	 * @Description: TODO
+	 *
 	 * @param sid 学号
 	 * @param username 修改之后的姓名
 	 * @return 修改成功条数
-	 * @return: Integer
 	 */
-	//@Modifying 可以修改或删除  JPQL不支持INSERT
+	//@Modifying 可以修改或删除  JPQL不支持insert和update
 	@Modifying    
 	@Query("UPDATE Student s SET s.username = :username WHERE s.sid = :sid")
 	Integer updateStudentUsername(@Param("sid") String sid, @Param("username") String username);

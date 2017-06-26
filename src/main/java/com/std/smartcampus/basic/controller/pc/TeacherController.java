@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 教师控制层
  * @ClassName: PCTeacherController 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:35:29
  */

@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 
  * @ClassName: MobileWeekCourseController 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:55:30
  */

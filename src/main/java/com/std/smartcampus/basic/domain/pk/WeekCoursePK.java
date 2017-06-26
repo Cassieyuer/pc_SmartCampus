@@ -7,7 +7,7 @@ import com.std.smartcampus.basic.domain.WeekCourse.Week;
 /**
  * 课程表主键
  * @ClassName: WeekCoursePK 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:00:55
  */

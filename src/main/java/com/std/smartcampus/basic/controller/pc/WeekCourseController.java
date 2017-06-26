@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
 /**
  * 课程表控制层
  * @ClassName: PCWeekCourseController 
- * @Description: TODO
+ *
  * @author: Administrator
  * @date: 2017年3月26日 上午1:24:30
  */
@@ -140,7 +140,7 @@ public class WeekCourseController {
 	/**
 	 * 拼接URL
 	 * @Title: getParam 
-	 * @Description: TODO
+	 *
 	 * @param args
 	 * @return
 	 * @return: String
